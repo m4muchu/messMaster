@@ -66,6 +66,24 @@ router.post('/messcut', isLoggedIn, (req, res) => {
   });
 });
 
+router.post('/latemess',isLoggedIn,(req,res)=>{
+    let messNumber=req.body.messNumber;
+    let date=req.body.date;
+
+    var newLateMess=new LateMess();
+    newLateMess.messNumber=messNumber;
+    newLateMess.date=date;
+
+    newLateMess.save((err)=>{
+        if(err){
+            res.json({success:false,message:"Late Mess Unsuccesfull"});
+        }
+        else{
+            res.json({success:true,message:"Late Mess added Succesfully"});
+        }
+    });
+});
+
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
