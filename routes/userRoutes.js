@@ -44,6 +44,25 @@ router.post('/logout', (req, res) => {
     }
 });
 
+router.post('/messcut',isLoggedIn,(req,res)=>{
+    let messNumber=req.body.messNumber;
+    let fromDate=req.body.fromDate;
+    let toDate=req.body.toDate;
+
+    var newMessCut=new MessCut();
+    newMessCut.messNumber=messNumber;
+    newMessCut.fromDate=fromDate;
+    newMessCut.toDate=toDate;
+    newMessCut.save((err)=>{
+        if(err){
+            res.json({success:false,message:"Mess cut Unsuccesfull,Please try again"});
+        }
+        else{
+            res.json({success:true,message:"Mess cut Succesfull"});
+        }
+    });
+});
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
