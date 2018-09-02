@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../model/user');
 var MessCut = require('../model/messcut');
+var LateMess = require('../model/latemess');
 var passport = require('passport');
 
 router.post('/signup', (req, res) => {
@@ -66,22 +67,36 @@ router.post('/messcut', isLoggedIn, (req, res) => {
   });
 });
 
-router.post('/latemess',isLoggedIn,(req,res)=>{
-    let messNumber=req.body.messNumber;
-    let date=req.body.date;
+router.post('/latemess', isLoggedIn, (req, res) => {
+    let messNumber = req.body.messNumber;
+    let date = req.body.date;
 
-    var newLateMess=new LateMess();
-    newLateMess.messNumber=messNumber;
-    newLateMess.date=date;
+    var newLateMess = new LateMess();
+    newLateMess.messNumber = messNumber;
+    newLateMess.date = date;
 
-    newLateMess.save((err)=>{
-        if(err){
-            res.json({success:false,message:"Late Mess Unsuccesfull"});
-        }
-        else{
-            res.json({success:true,message:"Late Mess added Succesfully"});
-        }
-    });
+    var datetime = new Date();
+
+    if (datetime.getHours() > 20) {
+        res.json({
+            success: false,
+            message: "Late mess Unsuccesfull"
+        });
+    } else {
+        newLateMess.save((err) => {
+            if (err) {
+                res.json({
+                    success: false,
+                    message: "Late Mess Unsuccesfull"
+                });
+            } else {
+                res.json({
+                    success: true,
+                    message: "Late Mess added Succesfully"
+                });
+            }
+        });
+    }
 });
 
 function isLoggedIn(req, res, next) {
