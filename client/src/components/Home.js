@@ -4,24 +4,16 @@ import { Spin, Icon, notification } from 'antd';
 import PropTypes from 'prop-types';
 import { lateMess } from '../actions/dateAction';
 import axios from 'axios';
+import { messCutFetch } from '../actions/messCutAction';
 
 class Home extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.lateMess) {
-      console.log(this.props.auth.lateMess);
+  componentDidMount() {
+    let messNumber = this.props.auth.user;
 
-      const openNotification = () => {
-        notification.open({
-          message: 'YOUR LATE MESS IS SUCCESSFULL',
-          description:
-            'Take the food as per mess number provided in the plate,if you',
-          icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />
-        });
-      };
-
-      openNotification();
-    }
+    console.log('component did mount executed', messNumber);
+    this.props.messCutFetch(messNumber);
   }
+
   lateMess(e) {
     e.preventDefault();
 
@@ -48,6 +40,15 @@ class Home extends Component {
     };
 
     this.props.lateMess(data);
+    const openNotification = () => {
+      notification.open({
+        message: 'YOUR LATE MESS IS SUCCESSFULL',
+        description:
+          'Take the food as per mess number provided in the plate,if you',
+        icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />
+      });
+    };
+    openNotification();
   }
 
   messcut(e) {
@@ -64,6 +65,10 @@ class Home extends Component {
   }
 
   render() {
+    // const dates = this.props.auth.messCutHistory;
+    // const datesArray = JSON.stringify(dates);
+    const { messCutHistory } = this.props;
+
     return (
       <div className="home-section">
         <section className="section section-head">
@@ -113,18 +118,11 @@ class Home extends Component {
                   </thead>
 
                   <tbody>
-                    <tr>
-                      <td>12-09-2017</td>
-                      <td>14-09-2017</td>
-                    </tr>
-                    <tr>
-                      <td>20-10-2017</td>
-                      <td>21-10-2017</td>
-                    </tr>
-                    <tr>
-                      <td>30-01-2018</td>
-                      <td>04-02-2018</td>
-                    </tr>
+                    {messCutHistory.map(dates => (
+                      <tr>
+                        <td>{dates.fromDate}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -148,8 +146,8 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  messCutFetch: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -158,5 +156,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { lateMess }
+  { lateMess, messCutFetch }
 )(Home);

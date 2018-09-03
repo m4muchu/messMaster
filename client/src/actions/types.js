@@ -3,3 +3,4 @@ export const SET_MESS_CUT = 'SET_MESS_CUT';
 export const SET_LATE_MESS = 'SET_LATE_MESS';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const MESS_CUT_FETCH = 'MESS_CUT_FETCH';
