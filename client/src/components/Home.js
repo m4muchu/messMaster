@@ -1,10 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Spin, Icon, notification } from 'antd';
 import PropTypes from 'prop-types';
 import { lateMess } from '../actions/dateAction';
+import axios from 'axios';
 
 class Home extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.lateMess) {
+      console.log(this.props.auth.lateMess);
+
+      const openNotification = () => {
+        notification.open({
+          message: 'YOUR LATE MESS IS SUCCESSFULL',
+          description:
+            'Take the food as per mess number provided in the plate,if you',
+          icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />
+        });
+      };
+
+      openNotification();
+    }
+  }
   lateMess(e) {
     e.preventDefault();
 
@@ -33,16 +50,98 @@ class Home extends Component {
     this.props.lateMess(data);
   }
 
+  messcut(e) {
+    e.preventDefault();
+    this.props.history.push('/mess-cut');
+  }
+
+  logout() {
+    axios.post('/logout').then(res => {
+      console.log(res);
+      localStorage.clear();
+      window.location.href = '/';
+    });
+  }
+
   render() {
     return (
-      <div>
-        <Link to="/mess-cut" className="btn-large blue lighten-2">
-          mess cut
-        </Link>
+      <div className="home-section">
+        <section className="section section-head">
+          <div className="container">
+            <div className="row">
+              <div className="">
+                <div
+                  className="btn-large waves-effect lighten-effect blue lighten-2 col s12 m4"
+                  onClick={this.messcut.bind(this)}
+                >
+                  mess cut
+                </div>
+              </div>
+              <div className="">
+                <div
+                  className="btn-large waves-effect lighten-effect blue lighten-2 col s12 m4"
+                  onClick={this.lateMess.bind(this)}
+                >
+                  late mess
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <div className="btn-large" onClick={this.lateMess.bind(this)}>
-          late mess
-        </div>
+        <section className="section section-middle">
+          <div className="container">
+            <div className="row">
+              <div className="col s12 m4">
+                <div className="card indigo lighten-1 messNumberCard">
+                  <div className="card-content">
+                    <p className="white-text">MESS NO</p>
+                    <span className="messNumber">{this.props.auth.user}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="col s12 m4 offset-m1 ">
+                <p className="center" id="messcutHeading">
+                  Mess-cut History
+                </p>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>From</th>
+                      <th>To</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td>12-09-2017</td>
+                      <td>14-09-2017</td>
+                    </tr>
+                    <tr>
+                      <td>20-10-2017</td>
+                      <td>21-10-2017</td>
+                    </tr>
+                    <tr>
+                      <td>30-01-2018</td>
+                      <td>04-02-2018</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="center">
+            <div
+              className="btn-large waves-effect lighten-effect red lighten-2 col s12 m4"
+              onClick={this.logout.bind(this)}
+            >
+              log out
+            </div>
+          </div>
+        </section>
       </div>
     );
   }

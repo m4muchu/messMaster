@@ -1,7 +1,9 @@
-import { SET_CURRENT_USER } from './types';
+import { SET_CURRENT_USER, LOGIN_USER, LOGIN_ERROR } from './types';
 import axios from 'axios';
 
 export const loginUser = userData => dispatch => {
+  dispatch({ type: LOGIN_USER });
+
   axios
     .post('/login', userData)
     .then(res => {
@@ -16,7 +18,12 @@ export const loginUser = userData => dispatch => {
       // re direct to home page
       dispatch(setCurrentUser(messNumber));
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch({
+        type: LOGIN_ERROR,
+        payload: true
+      })
+    );
 };
 
 // set logged user

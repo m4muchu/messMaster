@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import { Spin, Icon } from 'antd';
 import { connect } from 'react-redux';
 
 import { loginUser } from '../../actions/authActions';
+
+const antIcon = (
+  <Icon type="loading" style={{ fontSize: 24, color: '#00897b' }} spin />
+);
 
 class Login extends Component {
   constructor() {
@@ -45,15 +49,32 @@ class Login extends Component {
     this.props.loginUser(user);
   }
 
+  renderButton() {
+    if (this.props.auth.loading) {
+      return (
+        <div>
+          <Spin indicator={antIcon} />
+        </div>
+      );
+    } else {
+      return <input type="submit" value="submit" className="btn" />;
+    }
+  }
+
+  renderError() {
+    if (this.props.auth.error) {
+      return <p className="red-text">Please Check Your Mess No and password</p>;
+    }
+  }
+
   render() {
     return (
       <section className="section section-register center">
-        <h2>Mess Master</h2>
         <div className="container">
           <div className="row">
             <div className="col s12 m6 offset-m3">
               <div className="card-panel grey lighten-3">
-                <h5>REGISTER</h5>
+                <h5 className="loginHeading">LOGIN</h5>
                 <form onSubmit={this.onSubmit.bind(this)}>
                   <div className="input-field">
                     <input
@@ -77,7 +98,8 @@ class Login extends Component {
                     />
                     <label for="phone">Password</label>
                   </div>
-                  <input type="submit" value="submit" className="btn" />
+                  <div>{this.renderError()}</div>
+                  <div>{this.renderButton()}</div>
                 </form>
               </div>
             </div>

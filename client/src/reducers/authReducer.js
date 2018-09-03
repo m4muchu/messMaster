@@ -1,14 +1,19 @@
 import {
   SET_CURRENT_USER,
   SET_MESS_CUT,
-  SET_LATE_MESS
+  SET_LATE_MESS,
+  LOGIN_USER,
+  LOGIN_ERROR
 } from '../actions/types';
 import isEmpty from '../validation/is-empty';
 
 const initialState = {
   isAuthenticated: false,
   user: {},
-  date: {}
+  cutDate: {},
+  lateMess: {},
+  loading: false,
+  error: false
 };
 
 export default function(state = initialState, action) {
@@ -17,17 +22,30 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
-        user: action.payload
+        user: action.payload,
+        loading: false
       };
     case SET_MESS_CUT:
       return {
         ...state,
-        date: action.payload
+        cutDate: action.payload
       };
     case SET_LATE_MESS:
       return {
         ...state,
-        date: action.payload
+        lateMess: action.payload
+      };
+    case LOGIN_USER:
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        error: true,
+        loading: false
       };
     default:
       return state;
