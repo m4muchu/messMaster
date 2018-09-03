@@ -99,6 +99,13 @@ router.post('/latemess', isLoggedIn, (req, res) => {
     }
 });
 
+router.post('/getmesscut',isLoggedIn,(req,res)=>{
+    let messNumber=req.body.messNumber;
+    MessCut.find({'messNumber':messNumber})
+        .then(messcuts=>res.send(messcuts))
+        .catch(err=>res.send({message:"Cannot fetch messcuts",success:false}));
+});
+
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
