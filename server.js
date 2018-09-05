@@ -18,7 +18,10 @@ app.use(bodyParser());
 
 require('./config/passport');
 
-mongoose.connect(config.mongoURI);
+mongoose.connect(
+  config.mongoURI,
+  { useNewUrlParser: true }
+);
 
 app.use(
   session({
