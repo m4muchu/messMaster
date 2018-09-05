@@ -68,42 +68,44 @@ router.post('/messcut', isLoggedIn, (req, res) => {
 });
 
 router.post('/latemess', isLoggedIn, (req, res) => {
-    let messNumber = req.body.messNumber;
-    let date = req.body.date;
+  let messNumber = req.body.messNumber;
+  let date = req.body.date;
 
-    var newLateMess = new LateMess();
-    newLateMess.messNumber = messNumber;
-    newLateMess.date = date;
+  var newLateMess = new LateMess();
+  newLateMess.messNumber = messNumber;
+  newLateMess.date = date;
 
-    var datetime = new Date();
+  var datetime = new Date();
 
-    if (datetime.getHours() > 20) {
+  if (datetime.getHours() > 20) {
+    res.json({
+      success: false,
+      message: 'Late mess Unsuccesfull'
+    });
+  } else {
+    newLateMess.save(err => {
+      if (err) {
         res.json({
-            success: false,
-            message: "Late mess Unsuccesfull"
+          success: false,
+          message: 'Late Mess Unsuccesfull'
         });
-    } else {
-        newLateMess.save((err) => {
-            if (err) {
-                res.json({
-                    success: false,
-                    message: "Late Mess Unsuccesfull"
-                });
-            } else {
-                res.json({
-                    success: true,
-                    message: "Late Mess added Succesfully"
-                });
-            }
+      } else {
+        res.json({
+          success: true,
+          message: 'Late Mess added Succesfully'
         });
-    }
+      }
+    });
+  }
 });
 
-router.post('/getmesscut',isLoggedIn,(req,res)=>{
-    let messNumber=req.body.messNumber;
-    MessCut.find({'messNumber':messNumber})
-        .then(messcuts=>res.send(messcuts))
-        .catch(err=>res.send({message:"Cannot fetch messcuts",success:false}));
+router.post('/getmesscut', isLoggedIn, (req, res) => {
+  let messNumber = req.body.messNumber;
+  MessCut.find({ messNumber: messNumber })
+    .then(messcuts => res.json(messcuts))
+    .catch(err =>
+      res.send({ message: 'Cannot fetch messcuts', success: false })
+    );
 });
 
 function isLoggedIn(req, res, next) {

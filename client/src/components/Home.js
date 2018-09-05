@@ -5,13 +5,42 @@ import PropTypes from 'prop-types';
 import { lateMess } from '../actions/dateAction';
 import axios from 'axios';
 import { messCutFetch } from '../actions/messCutAction';
+import TableItemFeed from './TableItemFeed';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    };
+  }
+
   componentDidMount() {
     let messNumber = this.props.auth.user;
 
+    console.log(this.state.data);
     console.log('component did mount executed', messNumber);
     this.props.messCutFetch(messNumber);
+    // axios.post('/getmesscut', { messNumber: messNumber }).then(res => {
+    //   let dataTable = res.data.map(data => {
+    //     return (
+    //       <tr>
+    //         <td>{data.fromDate}</td>
+    //         <td>{data.toDate}</td>
+    //       </tr>
+    //     );
+    //   });
+    //   this.setState({ data: dataTable });
+    // });
+    // let messCutHistory = this.props.mess.messCutHistory;
+    // let dataTable = messCutHistory.map(data => {
+    //   return (
+    //     <tr>
+    //       <td>{data.fromDate}</td>
+    //       <td>{data.toDate}</td>
+    //     </tr>
+    //   );
+    // });
   }
 
   lateMess(e) {
@@ -40,6 +69,7 @@ class Home extends Component {
     };
 
     this.props.lateMess(data);
+
     const openNotification = () => {
       notification.open({
         message: 'YOUR LATE MESS IS SUCCESSFULL',
@@ -64,10 +94,37 @@ class Home extends Component {
     });
   }
 
+  // tableData() {
+  //   const { messCutHistory } = this.props.auth;
+
+  //   console.log('inside table data', messCutHistory);
+
+  //   // return messCutHistory.map(date => <TableItem key={date._id} date={date} />);
+  // }
+
   render() {
-    // const dates = this.props.auth.messCutHistory;
     // const datesArray = JSON.stringify(dates);
-    const { messCutHistory } = this.props;
+    const { messCutHistory } = this.props.mess;
+    //messCutHistory.map(date => console.log(date));
+
+    // messCutHistory.map(date => console.log(date));
+
+    console.log('home', messCutHistory);
+
+    // messCutHistory.map(date => console.log(date));
+
+    let tableContent;
+
+    // let messCutHistory = this.props.auth.messCutHistory;
+    // let dataTable = messCutHistory.map(data => {
+    //   return (
+    //     <tr>
+    //       <td>{data.fromDate}</td>
+    //       <td>{data.toDate}</td>
+    //     </tr>
+    //   );
+
+    // tableContent = <TableItemFeed messCutHistory={messCutHistory} />;
 
     return (
       <div className="home-section">
@@ -117,13 +174,7 @@ class Home extends Component {
                     </tr>
                   </thead>
 
-                  <tbody>
-                    {messCutHistory.map(dates => (
-                      <tr>
-                        <td>{dates.fromDate}</td>
-                      </tr>
-                    ))}
-                  </tbody>
+                  <tbody />
                 </table>
               </div>
             </div>
@@ -146,12 +197,13 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  auth: PropTypes.object.isRequired,
-  messCutFetch: PropTypes.func.isRequired
+  messCutFetch: PropTypes.func.isRequired,
+  messCutHistory: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  mess: state.mess
 });
 
 export default connect(

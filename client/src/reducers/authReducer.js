@@ -3,8 +3,7 @@ import {
   SET_MESS_CUT,
   SET_LATE_MESS,
   LOGIN_USER,
-  LOGIN_ERROR,
-  MESS_CUT_FETCH
+  LOGIN_ERROR
 } from '../actions/types';
 import isEmpty from '../validation/is-empty';
 
@@ -14,8 +13,7 @@ const initialState = {
   cutDate: {},
   lateMess: {},
   loading: false,
-  error: false,
-  messCutHistory: {}
+  error: false
 };
 
 export default function(state = initialState, action) {
@@ -48,11 +46,6 @@ export default function(state = initialState, action) {
         ...state,
         error: true,
         loading: false
-      };
-    case MESS_CUT_FETCH:
-      return {
-        ...state,
-        messCutHistory: action.payload
       };
     default:
       return state;
