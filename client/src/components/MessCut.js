@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { messCut } from '../actions/dateAction';
-import { Spin, Icon, notification } from 'antd';
+import { Icon, notification } from 'antd';
 
 import './messcut.css';
 
-import { DatePicker, Button } from 'antd';
+import { DatePicker } from 'antd';
 
 const { RangePicker } = DatePicker;
 

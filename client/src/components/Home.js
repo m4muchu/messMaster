@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Spin, Icon, notification, Modal } from 'antd';
+import { Icon, notification, Modal } from 'antd';
 import PropTypes from 'prop-types';
 import { lateMess } from '../actions/dateAction';
 import axios from 'axios';

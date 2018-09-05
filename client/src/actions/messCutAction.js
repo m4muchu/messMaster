@@ -1,6 +1,5 @@
 import { MESS_CUT_FETCH } from './types';
 import axios from 'axios';
-import { messCut } from './dateAction';
 
 export const messCutFetch = messNumber => dispatch => {
   console.log('mess number', messNumber);
