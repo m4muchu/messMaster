@@ -37,8 +37,6 @@ class MessCut extends Component {
       const openNotification = () => {
         notification.open({
           message: 'YOUR MESS CUT IS SUCCESSFULL',
-          description:
-            'Take the food as per mess number provided in the plate,if you',
           icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />
         });
       };
@@ -84,12 +82,12 @@ class MessCut extends Component {
                   </div>
 
                   <div className="card-action">
-                    <div
+                    <a
                       className="btn waves-effect lighten-effect red lighten-2"
                       onClick={this.submit.bind(this)}
                     >
                       submit
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>

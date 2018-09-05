@@ -20,7 +20,7 @@ button {
 body {
   background: #4ecdc4;
   background: -webkit-linear-gradient(to right, #556270, #4ecdc4);
-  background: linear-gradient(to right, #556270, #4ecdc4);
+  background: linear-gradient(to right, #41c2b9, #4ecdc4);
 }
 
 .input-field {
@@ -66,6 +66,9 @@ p .messcut-heading {
 }
 
 @media (max-width: 600px) {
+  body {
+    background: #f5f5f5;
+  }
 }
 
 @media (min-width: 720px) {

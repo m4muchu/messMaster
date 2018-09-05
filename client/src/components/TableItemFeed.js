@@ -9,9 +9,7 @@ class TableItemFeed extends Component {
 
     // messCutHistory.map(date => console.log(date));
 
-    return messCutHistory.messCutHistory.map(date => (
-      <TableItem key={date._id} date={date} />
-    ));
+    return messCutHistory.map(date => <TableItem key={date._id} date={date} />);
   }
 }
 

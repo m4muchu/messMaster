@@ -6,11 +6,11 @@ class TableItem extends Component {
     const { date } = this.props;
     console.log('inside tableItem', date);
     return (
-      <div>
-        <tr>
-          <td>{date}</td>
-        </tr>
-      </div>
+      <tr>
+        <td>{date.fromDate}</td>
+
+        <td>{date.toDate}</td>
+      </tr>
     );
   }
 }
