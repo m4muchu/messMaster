@@ -57,7 +57,13 @@ class Login extends Component {
         </div>
       );
     } else {
-      return <input type="submit" value="submit" className="btn" />;
+      return (
+        <input
+          type="submit"
+          value="submit"
+          className="btn teal teal darken-1"
+        />
+      );
     }
   }
 
@@ -69,43 +75,45 @@ class Login extends Component {
 
   render() {
     return (
-      <section className="section section-register center">
-        <div className="container">
-          <div className="row">
-            <div className="col s12 m6 offset-m3">
-              <div className="card-panel grey lighten-3">
-                <h5 className="loginHeading">LOGIN</h5>
-                <form onSubmit={this.onSubmit.bind(this)}>
-                  <div className="input-field">
-                    <input
-                      type="number"
-                      name="messNumber"
-                      id="messNumber"
-                      placeholder="Mess Number"
-                      onChange={this.onChange}
-                      value={this.messNumber}
-                    />
-                    <label for="email">Mess Number</label>
-                  </div>
-                  <div className="input-field">
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      placeholder="Password"
-                      onChange={this.onChange}
-                      value={this.password}
-                    />
-                    <label for="phone">Password</label>
-                  </div>
-                  <div>{this.renderError()}</div>
-                  <div>{this.renderButton()}</div>
-                </form>
+      <div className="body-register">
+        <section className="section section-register center">
+          <div className="container">
+            <div className="row">
+              <div className="col s12 m6 offset-m3">
+                <div className="card-panel grey lighten-3">
+                  <h5 className="loginHeading">LOGIN</h5>
+                  <form onSubmit={this.onSubmit.bind(this)}>
+                    <div className="input-field">
+                      <input
+                        type="number"
+                        name="messNumber"
+                        id="messNumber"
+                        placeholder="Mess Number"
+                        onChange={this.onChange}
+                        value={this.messNumber}
+                      />
+                      <label for="email">Mess Number</label>
+                    </div>
+                    <div className="input-field">
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Password"
+                        onChange={this.onChange}
+                        value={this.password}
+                      />
+                      <label for="phone">Password</label>
+                    </div>
+                    <div>{this.renderError()}</div>
+                    <div>{this.renderButton()}</div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     );
   }
 }
