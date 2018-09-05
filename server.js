@@ -9,7 +9,7 @@ const path = require('path');
 
 const userRoutes = require('./routes/userRoutes');
 
-var port = 8000 || process.env.PORT;
+var port = process.env.PORT;
 
 const app = express();
 
@@ -18,10 +18,7 @@ app.use(bodyParser());
 
 require('./config/passport');
 
-mongoose.connect(
-  config.mongoURI,
-  { useNewUrlParser: true }
-);
+mongoose.connect(config.mongoURI);
 
 app.use(
   session({
