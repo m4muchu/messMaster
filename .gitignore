@@ -1,4 +1,1 @@
-/node_modules 
-package-lock.json
-/config/keys_dev.jsnode_modules
-npm-debug.log
+node_modules
