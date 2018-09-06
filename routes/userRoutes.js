@@ -48,7 +48,7 @@ router.post('/logout', (req, res) => {
   }
 });
 
-router.post('/messcut', isLoggedIn, (req, res) => {
+router.post('/messcut', (req, res) => {
   let messNumber = req.body.messNumber;
   let fromDate = req.body.fromDate;
   let toDate = req.body.toDate;
@@ -69,7 +69,7 @@ router.post('/messcut', isLoggedIn, (req, res) => {
   });
 });
 
-router.post('/latemess', isLoggedIn, (req, res) => {
+router.post('/latemess', (req, res) => {
   let messNumber = req.body.messNumber;
   let date = req.body.date;
 
