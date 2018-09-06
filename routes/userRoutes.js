@@ -6,26 +6,26 @@ var LateMess = require('../model/latemess');
 var passport = require('passport');
 
 router.post('/signup', (req, res) => {
-    let messNumber = req.body.messNumber;
-    let name=req.body.name;
-    let password = req.body.password;
-    var newUser = new User();
-    newUser.messNumber = messNumber;
-    newUser.name=name;
-    newUser.password = newUser.hashPassword(password);
-    newUser.save((err) => {
-        if (err) {
-            res.json({
-                message: "Mess Number already taken",
-                success: false
-            });
-        } else {
-            res.json({
-                message: "Registration successfull",
-                success: true
-            });
-        }
-    });
+  let messNumber = req.body.messNumber;
+  let name = req.body.name;
+  let password = req.body.password;
+  var newUser = new User();
+  newUser.messNumber = messNumber;
+  newUser.name = name;
+  newUser.password = newUser.hashPassword(password);
+  newUser.save(err => {
+    if (err) {
+      res.json({
+        message: 'Mess Number already taken',
+        success: false
+      });
+    } else {
+      res.json({
+        message: 'Registration successfull',
+        success: true
+      });
+    }
+  });
 });
 
 router.post('/login', passport.authenticate('local-login'), (req, res) => {
@@ -101,7 +101,7 @@ router.post('/latemess', isLoggedIn, (req, res) => {
   }
 });
 
-router.post('/getmesscut', isLoggedIn, (req, res) => {
+router.post('/getmesscut', (req, res) => {
   let messNumber = req.body.messNumber;
   MessCut.find({ messNumber: messNumber })
     .then(messcuts => res.json(messcuts))
