@@ -18,7 +18,9 @@ app.use(bodyParser());
 
 require('./config/passport');
 
-mongoose.connect(config.mongoURI);
+const db = require('./config/keys').mongoURI;
+
+mongoose.connect(db);
 
 app.use(
   session({
