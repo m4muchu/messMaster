@@ -9,7 +9,7 @@ const path = require('path');
 
 const userRoutes = require('./routes/userRoutes');
 
-var port = process.env.PORT;
+var port = process.env.PORT || 8000;
 
 const app = express();
 
@@ -33,8 +33,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api', userRoutes);
-
-app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
