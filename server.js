@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const config = require('./config/keys');
+const cors = require('cors');
 const path = require('path');
 
 const userRoutes = require('./routes/userRoutes');
@@ -15,6 +16,7 @@ const app = express();
 
 app.use(cookieParser());
 app.use(bodyParser());
+app.use(cors());
 
 require('./config/passport');
 
