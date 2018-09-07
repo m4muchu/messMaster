@@ -37,10 +37,10 @@ router.post('/signup', (req, res) => {
 router.post('/login', function(req, res, next) {
   passport.authenticate('local-login', function(err, user, info) {
     if (err) {
-      res.send({ message: 'Server Error', succes: false });
+      res.send({ message: 'Server Error', success: false });
     }
     if (!user) {
-      res.send({ message: 'No User found', succes: false });
+      res.send({ message: 'No User found', success: false });
     }
     req.logIn(user, function(err) {
       if (err) {
