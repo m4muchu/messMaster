@@ -28,10 +28,29 @@ router.post('/signup', (req, res) => {
   });
 });
 
-router.post('/login', passport.authenticate('local-login'), (req, res) => {
-  const user = JSON.parse(JSON.stringify(req.user));
-  let cleanUser = Object.assign({}, user);
-  res.json(cleanUser.messNumber);
+// router.post('/login', passport.authenticate('local-login'), (req, res) => {
+//   const user = JSON.parse(JSON.stringify(req.user));
+//   let cleanUser = Object.assign({}, user);
+//   res.json(cleanUser.messNumber);
+// });
+
+router.post('/login', function(req, res, next) {
+  passport.authenticate('local-login', function(err, user, info) {
+    if (err) {
+      res.send({ message: 'Server Error', succes: false });
+    }
+    if (!user) {
+      res.send({ message: 'No User found', succes: false });
+    }
+    req.logIn(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      const user = JSON.parse(JSON.stringify(req.user));
+      let cleanUser = Object.assign({}, user);
+      res.json(cleanUser.messNumber);
+    });
+  })(req, res, next);
 });
 
 router.post('/logout', (req, res) => {
